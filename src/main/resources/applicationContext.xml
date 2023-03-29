@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- <bean>저장소에 해당하는 xml설정 파일을 참조하여 bean의 생명주기를 관리하고 여러가지 서비스를 제공 중요함!! -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:cache="http://www.springframework.org/schema/cache"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:lang="http://www.springframework.org/schema/lang"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+		http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-4.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.2.xsd
+		http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-4.2.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.2.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.2.xsd">
+
+<!-- 
+
+<import>태그
+스프링 기반의 애플리케이션을 단순한 bean등록 외에도 트래젝션 관리,예외처리,다국어 처리 등 복잡하고 다양한 설정이 필요
+이런 모든 설정을 하나의 파일로 모두 처리할 수도 있지만 그렇게 하면 스프링 설정파일이 너무 길어지고 관리도 어려움
+결국 기능별 여러 xml파일로 나누어 설정하는 것이 더 효율적인데 이렇게 분리하여 작성한 설정파일을 하나로 통합할 때 import앨리먼트 사용
+import태그를 이용하여 어려 스프링 설정파일을 포함하므로 한 파일에 작성하는 것과 같은 효과를 낼 수 있다
+예를 들명 <import resource="Context-datasource.xml">
+<import resource="Context-transaction.xml">
+ -->
+ 
+ <!-- init-method속성 
+ <bean>등록된 클래스 객체를 생성한 후에 init-method로 지정된 메서드를 호출함, 이 메서드에서 멤버변수의 댛산 초기화 작업을 처리함
+ -->
+ 
+ <!--destroy-method속성
+ 스프링 컨테이너가 객체를 삭제하기 직전에 호출될 임의의 메서드를 지정
+   -->
+ 
+ <!-- lazy-init속성
+ true로 하면 미리생성하지 않고 클라이언트가 요청하는 시점에 생성,그러므로 메모리관리에 효율적이다
+  -->
+ 
+ <!-- scope속성
+ 기본이 singleton, 생략됨,singleton은단하나만 생성되어 운용되도록 한다. prototype은 요청될 때 마다 새로운 객체생성
+  -->
+  
+ 
+ <!--id는 생략 가능,name도 있으나 id사용을 선호함 , 클래스는 정확한 패키지 경로와 클래스 이름을 지정,자동완성 기능 활용  -->
+<!-- <bean id="tv" class="SamsungTV" init-method="initMethod" destroy-method="destoryMethod" scope="prototype"></bean> -->
+
+<!--  polymorphism패키지에있는 클래스들 사용-->
+<!--  constructor-arg ref="sony">이기때문에 id가 sony인 class먼저 생성되기때문에 
+출력하면 sony관련 내용이 먼저 출력되는 것이다
+-->
+<bean id="tv" class="polymorphism.SamsungTV" scope="singleton">
+<constructor-arg ref="apple"></constructor-arg>
+<constructor-arg value="50"></constructor-arg>
+</bean>
+
+
+<!-- <bean id="sony" class="polymorphism.SonySpeaker" ></bean> -->
+<!-- AppleSpeaker클래스를 만들고 id apple을 만들어 위에 ref를 apple로 변경해주면 apple에 관련된 내용만 출력 -->
+<bean id="apple" class="polymorphism.AppleSpeaker" ></bean>
+
+
+</beans>
