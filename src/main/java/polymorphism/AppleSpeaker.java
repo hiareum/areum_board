@@ -1,5 +1,10 @@
 package polymorphism;
 
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+
+@Component(value = "appl")
+
 public class AppleSpeaker implements Speaker {
 
 	public AppleSpeaker() {

@@ -14,7 +14,7 @@ public class TVUser {
 		AbstractApplicationContext factory=new GenericXmlApplicationContext("applicationContext.xml");
 		
 		//구동된 컨테이너로부터 삼성tv 객체를 얻어냄
-	TV stv=(TV) factory.getBean("tv");
+		TV stv=(TV) factory.getBean("stv");
 		
 		////applicationContext.xml설정파일에 작성 scope="singleton"실행결과 하나만 출력됨
 		//applicationContext.xml설정파일에 작성 scope="prototype"실행결과 모두 출력됨
@@ -25,10 +25,8 @@ public class TVUser {
 		
 		
 		System.out.println(stv);
-		stv.powerOn();
 		stv.volumeUp();
 		stv.volumeDown();
-		stv.powerOff();
 		
 	
 	

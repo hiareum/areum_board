@@ -58,15 +58,71 @@ import태그를 이용하여 어려 스프링 설정파일을 포함하므로 �
 <!--  constructor-arg ref="sony">이기때문에 id가 sony인 class먼저 생성되기때문에 
 출력하면 sony관련 내용이 먼저 출력되는 것이다
 -->
-<bean id="tv" class="polymorphism.SamsungTV" scope="singleton">
-<constructor-arg ref="apple"></constructor-arg>
-<constructor-arg value="50"></constructor-arg>
+
+<!--  <bean id="stv" class="polymorphism.SamsungTV" scope="singleton"> -->
+ <!--아래는 생성자를 이용한 의존성 처리  -->
+<!-- <constructor-arg ref="apple"></constructor-arg>
+<constructor-arg value="50"></constructor-arg> -->
+
+<!--아래는 setter인젝션 이용한 의존성 처리  -->
+<!--ref의 값을 bean id와 맞춰줘야한다  -->
+<!-- <property name="speaker" ref="sony"></property>
+<property name="price" value="1000"></property>-->
+<!-- </bean>  -->
+ 
+
+<!--  <bean id="sony" class="polymorphism.SonySpeaker" ></bean>  -->
+<!-- AppleSpeaker클래스를 만들고 id apple을 만들어 위에 ref를 apple로 변경해주면 apple에 관련된 내용만 출력 -->
+<!-- <bean id="apple" class="polymorphism.AppleSpeaker" ></bean> -->
+<!-- <bean id="sony" class="polymorphism.SonySpeaker" ></bean> -->
+
+
+<!-- <bean id="collectionBean" class="injection.CollectionBean">
+<property name="addressList"> -->
+
+<!-- <list>
+<value>모란역</value>
+<value>강남역</value>
+</list> -->
+
+<!-- Map<String,String>타입일 때 Map컬렉션을 썼을때-->
+
+<!--  <map>
+<entry>
+<key><value>이름1</value></key>
+<value>홍일동</value>
+</entry>
+
+<entry>
+<key><value>이름2</value></key>
+<value>홍이동</value>
+</entry>
+</map> 
+ -->
+
+<!-- props컬렉션을 썻을때 -->
+<!-- <props>
+
+<prop key="고길동">모란역</prop>
+<prop key="조아름">서울역</prop>
+</props>
+
+
+</property> -->
+
+<!-- </bean> -->
+
+<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+ <property name="driverClassName" value="org.h2.Driver"></property>
+ <property name="url" value="jdbc:h2:tcp://localhost/~/test"></property>
+ <property name="username" value="sa"></property>
+ <property name="password" value=""></property>
 </bean>
 
+<!-- Bean을 등록하지 않고 자동으로 생성하기 위함 , 이 설정을 추가하면 스프링 ㅈ컨테이너는 클래스 패스에 있는 클래스들을 스캔하여
+	@Component가 설정된  -->
+<context:component-scan base-package="com.springbook.biz" />
 
-<!-- <bean id="sony" class="polymorphism.SonySpeaker" ></bean> -->
-<!-- AppleSpeaker클래스를 만들고 id apple을 만들어 위에 ref를 apple로 변경해주면 apple에 관련된 내용만 출력 -->
-<bean id="apple" class="polymorphism.AppleSpeaker" ></bean>
 
 
 </beans>

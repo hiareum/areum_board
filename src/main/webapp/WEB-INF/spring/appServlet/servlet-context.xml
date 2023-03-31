@@ -21,7 +21,9 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="com.himedia.biz" />
+	<!-- Bean을 등록하지 않고 자동으로 생성하기 위함 , 이 설정을 추가하면 스프링 ㅈ컨테이너는 클래스 패스에 있는 클래스들을 스캔하여
+	@Component가 설정된  -->
+	<!-- <context:component-scan base-package="polymorphism" /> -->
 	
 	
 	
