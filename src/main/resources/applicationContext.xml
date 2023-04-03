@@ -23,106 +23,109 @@
 		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.2.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.2.xsd">
 
-<!-- 
+	<!-- <import>태그 스프링 기반의 애플리케이션을 단순한 bean등록 외에도 트래젝션 관리,예외처리,다국어 처리 등 복잡하고 
+		다양한 설정이 필요 이런 모든 설정을 하나의 파일로 모두 처리할 수도 있지만 그렇게 하면 스프링 설정파일이 너무 길어지고 관리도 어려움 
+		결국 기능별 여러 xml파일로 나누어 설정하는 것이 더 효율적인데 이렇게 분리하여 작성한 설정파일을 하나로 통합할 때 import앨리먼트 
+		사용 import태그를 이용하여 어려 스프링 설정파일을 포함하므로 한 파일에 작성하는 것과 같은 효과를 낼 수 있다 예를 들명 <import 
+		resource="Context-datasource.xml"> <import resource="Context-transaction.xml"> -->
 
-<import>태그
-스프링 기반의 애플리케이션을 단순한 bean등록 외에도 트래젝션 관리,예외처리,다국어 처리 등 복잡하고 다양한 설정이 필요
-이런 모든 설정을 하나의 파일로 모두 처리할 수도 있지만 그렇게 하면 스프링 설정파일이 너무 길어지고 관리도 어려움
-결국 기능별 여러 xml파일로 나누어 설정하는 것이 더 효율적인데 이렇게 분리하여 작성한 설정파일을 하나로 통합할 때 import앨리먼트 사용
-import태그를 이용하여 어려 스프링 설정파일을 포함하므로 한 파일에 작성하는 것과 같은 효과를 낼 수 있다
-예를 들명 <import resource="Context-datasource.xml">
-<import resource="Context-transaction.xml">
- -->
- 
- <!-- init-method속성 
- <bean>등록된 클래스 객체를 생성한 후에 init-method로 지정된 메서드를 호출함, 이 메서드에서 멤버변수의 댛산 초기화 작업을 처리함
- -->
- 
- <!--destroy-method속성
- 스프링 컨테이너가 객체를 삭제하기 직전에 호출될 임의의 메서드를 지정
-   -->
- 
- <!-- lazy-init속성
- true로 하면 미리생성하지 않고 클라이언트가 요청하는 시점에 생성,그러므로 메모리관리에 효율적이다
-  -->
- 
- <!-- scope속성
- 기본이 singleton, 생략됨,singleton은단하나만 생성되어 운용되도록 한다. prototype은 요청될 때 마다 새로운 객체생성
-  -->
-  
- 
- <!--id는 생략 가능,name도 있으나 id사용을 선호함 , 클래스는 정확한 패키지 경로와 클래스 이름을 지정,자동완성 기능 활용  -->
-<!-- <bean id="tv" class="SamsungTV" init-method="initMethod" destroy-method="destoryMethod" scope="prototype"></bean> -->
+	<!-- init-method속성 <bean>등록된 클래스 객체를 생성한 후에 init-method로 지정된 메서드를 호출함, 이 
+		메서드에서 멤버변수의 댛산 초기화 작업을 처리함 -->
 
-<!--  polymorphism패키지에있는 클래스들 사용-->
-<!--  constructor-arg ref="sony">이기때문에 id가 sony인 class먼저 생성되기때문에 
-출력하면 sony관련 내용이 먼저 출력되는 것이다
--->
+	<!--destroy-method속성 스프링 컨테이너가 객체를 삭제하기 직전에 호출될 임의의 메서드를 지정 -->
 
-<!--  <bean id="stv" class="polymorphism.SamsungTV" scope="singleton"> -->
- <!--아래는 생성자를 이용한 의존성 처리  -->
-<!-- <constructor-arg ref="apple"></constructor-arg>
-<constructor-arg value="50"></constructor-arg> -->
+	<!-- lazy-init속성 true로 하면 미리생성하지 않고 클라이언트가 요청하는 시점에 생성,그러므로 메모리관리에 효율적이다 -->
 
-<!--아래는 setter인젝션 이용한 의존성 처리  -->
-<!--ref의 값을 bean id와 맞춰줘야한다  -->
-<!-- <property name="speaker" ref="sony"></property>
-<property name="price" value="1000"></property>-->
-<!-- </bean>  -->
- 
-
-<!--  <bean id="sony" class="polymorphism.SonySpeaker" ></bean>  -->
-<!-- AppleSpeaker클래스를 만들고 id apple을 만들어 위에 ref를 apple로 변경해주면 apple에 관련된 내용만 출력 -->
-<!-- <bean id="apple" class="polymorphism.AppleSpeaker" ></bean> -->
-<!-- <bean id="sony" class="polymorphism.SonySpeaker" ></bean> -->
+	<!-- scope속성 기본이 singleton, 생략됨,singleton은단하나만 생성되어 운용되도록 한다. prototype은 
+		요청될 때 마다 새로운 객체생성 -->
 
 
-<!-- <bean id="collectionBean" class="injection.CollectionBean">
-<property name="addressList"> -->
+	<!--id는 생략 가능,name도 있으나 id사용을 선호함 , 클래스는 정확한 패키지 경로와 클래스 이름을 지정,자동완성 기능 
+		활용 -->
+	<!-- <bean id="tv" class="SamsungTV" init-method="initMethod" destroy-method="destoryMethod" 
+		scope="prototype"></bean> -->
 
-<!-- <list>
-<value>모란역</value>
-<value>강남역</value>
-</list> -->
+	<!-- polymorphism패키지에있는 클래스들 사용 -->
+	<!-- constructor-arg ref="sony">이기때문에 id가 sony인 class먼저 생성되기때문에 출력하면 sony관련 
+		내용이 먼저 출력되는 것이다 -->
 
-<!-- Map<String,String>타입일 때 Map컬렉션을 썼을때-->
+	<!-- <bean id="stv" class="polymorphism.SamsungTV" scope="singleton"> -->
+	<!--아래는 생성자를 이용한 의존성 처리 -->
+	<!-- <constructor-arg ref="apple"></constructor-arg> <constructor-arg value="50"></constructor-arg> -->
 
-<!--  <map>
-<entry>
-<key><value>이름1</value></key>
-<value>홍일동</value>
-</entry>
-
-<entry>
-<key><value>이름2</value></key>
-<value>홍이동</value>
-</entry>
-</map> 
- -->
-
-<!-- props컬렉션을 썻을때 -->
-<!-- <props>
-
-<prop key="고길동">모란역</prop>
-<prop key="조아름">서울역</prop>
-</props>
+	<!--아래는 setter인젝션 이용한 의존성 처리 -->
+	<!--ref의 값을 bean id와 맞춰줘야한다 -->
+	<!-- <property name="speaker" ref="sony"></property> <property name="price" 
+		value="1000"></property> -->
+	<!-- </bean> -->
 
 
-</property> -->
-
-<!-- </bean> -->
-
-<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
- <property name="driverClassName" value="org.h2.Driver"></property>
- <property name="url" value="jdbc:h2:tcp://localhost/~/test"></property>
- <property name="username" value="sa"></property>
- <property name="password" value=""></property>
-</bean>
-
-<!-- Bean을 등록하지 않고 자동으로 생성하기 위함 , 이 설정을 추가하면 스프링 ㅈ컨테이너는 클래스 패스에 있는 클래스들을 스캔하여
-	@Component가 설정된  -->
-<context:component-scan base-package="com.springbook.biz" />
+	<!-- <bean id="sony" class="polymorphism.SonySpeaker" ></bean> -->
+	<!-- AppleSpeaker클래스를 만들고 id apple을 만들어 위에 ref를 apple로 변경해주면 apple에 관련된 
+		내용만 출력 -->
+	<!-- <bean id="apple" class="polymorphism.AppleSpeaker" ></bean> -->
+	<!-- <bean id="sony" class="polymorphism.SonySpeaker" ></bean> -->
 
 
+	<!-- <bean id="collectionBean" class="injection.CollectionBean"> <property 
+		name="addressList"> -->
+
+	<!-- <list> <value>모란역</value> <value>강남역</value> </list> -->
+
+	<!-- Map<String,String>타입일 때 Map컬렉션을 썼을때 -->
+
+	<!-- <map> <entry> <key><value>이름1</value></key> <value>홍일동</value> </entry> 
+		<entry> <key><value>이름2</value></key> <value>홍이동</value> </entry> </map> -->
+
+	<!-- props컬렉션을 썻을때 -->
+	<!-- <props> <prop key="고길동">모란역</prop> <prop key="조아름">서울역</prop> </props> 
+		</property> -->
+
+	<!-- </bean> -->
+
+	<bean id="dataSource"
+		class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="org.h2.Driver"></property>
+		<property name="url" value="jdbc:h2:tcp://localhost/~/test"></property>
+		<property name="username" value="sa"></property>
+		<property name="password" value=""></property>
+	</bean>
+
+	<!-- Bean을 등록하지 않고 자동으로 생성하기 위함 , 이 설정을 추가하면 스프링 ㅈ컨테이너는 클래스 패스에 있는 클래스들을 
+		스캔하여 @Component가 설정된 -->
+	<context:component-scan
+		base-package="com.springbook.biz" />
+		
+		<!-- AOP관련 어노테이션들을 인식하고 용도에 맞게 처리해 줌 -->
+		<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+
+	<!-- AOP -->
+	<bean id="around" class="com.springbook.biz.common.AroundAdvice"></bean>
+	
+
+	<!-- <aop:config> -->
+		<!-- 어드바이스를 조종할 위치 선정하는 설정,어드바이스(보조기능)는 포인트 컷으로 적용됳 위치가 결정되고, 그 시점에 어드바이스가 
+			실행된다 포인트 컷은 포인트컷 표현식을 사용하여 설정할 수 있으며 특정 어노테이션을 지정하여 설정할 수도 있다. -->
+			<!--  (*   com.springbook.biz..*Impl.*(..)) -->
+			<!-- 리턴타입  패키지경로                          ..클래스명.메소드명 및 매개변수 -->
+	<!-- 	<aop:pointcut
+			expression="execution(* com.springbook.biz..*Impl.*(..))"
+			id="allPointCut" />
+			
+			<aop:pointcut
+			expression="execution(* com.springbook.biz..*Impl.get*(..))"
+			id="getPointCut" />
+			
+		<aop:aspect ref="around">
+			<aop:before pointcut-ref="allPointCut" method="aroundLog" />
+		</aop:aspect>
+		 -->
+		<!-- aop:advisor
+		엘리먼트는 포인트컷과 어드바이스를 결합한다는 점에서는 에스펙트와 같은 기능을 한다
+		하지만 트래젝션 설정 같은 몇몇 특수한 애스펙트가 아닌 어드바이저를 사용해야 한다 왜냐하면 어드바이스 객체의 메소드 이름을
+		확인할 수 없을 때 
+		 -->
+		
+<!-- 	</aop:config>    -->
 
 </beans>
