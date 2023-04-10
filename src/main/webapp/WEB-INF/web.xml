@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee https://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
-  <context-param>
   
+  <!-- 스프링MVC 적용하여 글등록이나 수정기능시 한글 처리  -->
   <filter>
 		<filter-name>characterEncoding</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -16,14 +16,17 @@
 		<url-pattern>*.do</url-pattern>
 	</filter-mapping>
   
-  
+  <!-- 아래에 서블릿 ㄷ디스패쳐를 직접 작성해주었기때문에 자동으로 생성되는 설정들은 주석처리함 -->
+  <!-- <context-param>
     <param-name>contextConfigLocation</param-name>
     <param-value>/WEB-INF/spring/root-context.xml</param-value>
   </context-param>
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
-  <servlet>
+   -->
+  
+ <!--  <servlet>
     <servlet-name>appServlet</servlet-name>
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
     <init-param>
@@ -31,19 +34,40 @@
       <param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
     </init-param>
     <load-on-startup>1</load-on-startup>
-  </servlet>
-  <servlet-mapping>
+  </servlet> -->
+  
+<!-- <servlet-mapping>
     <servlet-name>appServlet</servlet-name>
     <url-pattern>/</url-pattern>
   </servlet-mapping>
-  
+   -->
   <!--  com.springbook.view.controller.DispatcherServlet을 생성하니 생김-->
-  <servlet>
+ <!--  <servlet>
     <description></description>
     <display-name>action</display-name>
     <servlet-name>action</servlet-name>
     <servlet-class>com.springbook.view.controller.DispatcherServlet</servlet-class>
+  </servlet> -->
+  
+  <!-- 위에 설정 주석처리하고 새로 등록함 -->
+  <!-- DispatcherServlet을 따로 만들지 않고 주입해줌 -->
+  <!--스프링MVC구성요소 중에서   DispatcherServlet클래스가 유일한 서블릿이다 따라서 서블릿 컨테이너는 web.xml파일에 등록된 DispatcherServlet만 생성한다 하지만 DispatcherServlet 객체ㄴ 혼자서는
+  클라이언트의 요청를 처리할 수 없고 반드시 핸들러매핑,컨트롤러,뷰리졀버 객체들과 상호 작용해야함
+  이 객체들은 메모리에 생성하기 위해서 DispatcherServlet은 스프링 컨테이너를 구동하는 것이다
+  스프링에서 제공하는 DispatcherServlet은 스프링 컨테이너를 통해 이 객체들을 생성-->
+    <!-- webinf에 action-servlet.xml을 만들어야함 스프링 빈 컨피그레이션 파일로 만들어야함!!-->
+  <servlet>
+  <servlet-name>action</servlet-name>
+  <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+  <init-param>
+  <param-name>contextConfigLocation</param-name>
+  <param-value>/WEB-INF/config/presentation-layer.xml</param-value>
+  </init-param>
   </servlet>
+  
+  
+  
+  <!-- webinf에 action-servlet.xml을 만들어야함 -->
   <servlet-mapping>
     <servlet-name>action</servlet-name>
     <url-pattern>*.do</url-pattern>
