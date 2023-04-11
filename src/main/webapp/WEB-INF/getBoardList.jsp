@@ -12,7 +12,7 @@
 	<center>
 		<h1>글 목록</h1>
 		<h3>
-			사용자님<a href="logout.do">Log-out</a>
+			<td>${userVO.id}</td><a href="logout.do">Log-out</a>
 		</h3>
 		<!-- 검색 시작 -->
 		<form action="getBoardList.jsp" method="post">

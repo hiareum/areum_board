@@ -4,11 +4,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.Controller;
+import org.springframework.stereotype.Controller;
 
-public class LogoutController implements Controller {
+@Controller
+public class LogoutController  {
 
+	@RequestMapping("/logout.do")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "login.jsp";
+	}
+
+	
+	/*
 	@Override
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("로그아웃 처리");
@@ -22,6 +32,6 @@ public class LogoutController implements Controller {
 		mav.setViewName("redirect:login.jsp");
 		return mav;
 
-	}
+	} */
 
 }
