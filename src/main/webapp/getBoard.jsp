@@ -1,5 +1,4 @@
 <%@page contentType="text/html; charset=UTF-8"%>
-<%-- <%@taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%> --%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
@@ -19,24 +18,24 @@
 				<tr>
 					<td bgcolor="orange" width="70">제목</td>
 					<td align="left"><input name="title" type="text"
-						value="${board.title}" /></td>
+						value="${board.title }" /></td>
 				</tr>
 				<tr>
 					<td bgcolor="orange">작성자</td>
-					<td align="left">${board.writer}</td>
+					<td align="left">${board.writer }</td>
 				</tr>
 				<tr>
 					<td bgcolor="orange">내용</td>
 					<td align="left"><textarea name="content" cols="40" rows="10">
-						${board.content}</textarea></td>
+						${board.content }</textarea></td>
 				</tr>
 				<tr>
 					<td bgcolor="orange">등록일</td>
-					<td align="left">${board.regDate}</td>
+					<td align="left">${board.regDate }</td>
 				</tr>
 				<tr>
 					<td bgcolor="orange">조회수</td>
-					<td align="left">${board.cnt}</td>
+					<td align="left">${board.cnt }</td>
 				</tr>
 				<tr>
 					<td colspan="2" align="center"><input type="submit"
@@ -46,7 +45,7 @@
 		</form>
 		<hr>
 		<a href="insertBoard.jsp">글등록</a>&nbsp;&nbsp;&nbsp; 
-		<a href="deleteBoard.do?seq=${board.seq}">글삭제</a>&nbsp;&nbsp;&nbsp;
+		<a href="deleteBoard.do?seq=${board.seq }">글삭제</a>&nbsp;&nbsp;&nbsp;
 		<a href="getBoardList.do">글목록</a>
 	</center>
 </body>
