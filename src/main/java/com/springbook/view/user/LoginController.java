@@ -21,14 +21,17 @@ public class LoginController {
 	@RequestMapping(value=	"/login.do", method=RequestMethod.GET)
 	public String loginView(@ModelAttribute("user") UserVO vo) { 
 		System.out.println("로그인 화면으로 이동...");
-		vo.setId("test");
-		vo.setPassword("test123");
+	//	vo.setId("test");
+		//vo.setPassword("test123");
 		return "login.jsp";
 	}
 	
 
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
 	public String login(UserVO vo, UserDAO userDAO, HttpSession session) {
+		if(vo.getId()==null || vo.getId().equals("")) {
+			throw new IllegalArgumentException("아이디는 입력해야 합니다");
+		}
 		UserVO user = userDAO.getUser(vo);
 		if (user != null) {
 			session.setAttribute("userName", user.getName());

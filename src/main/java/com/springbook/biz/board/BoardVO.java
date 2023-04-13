@@ -4,6 +4,8 @@ package com.springbook.biz.board;
 
 import java.sql.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 //VO(Value Object)
 public class BoardVO {
 	private int seq;
@@ -12,6 +14,35 @@ public class BoardVO {
 	private String content;
 	private Date regDate;
 	private int cnt;
+	private String searchCondition;
+	private String searchKeyword;
+	private MultipartFile uploadFile;
+	
+
+	public MultipartFile getUploadFile() {
+		return uploadFile;
+	}
+
+	//setUploadFile()메소드가  호출되려면 MultipartFile타입의 객체가 먼저 생성되어 있어야 한다 이 MultipartFile객체는 바로 스프링 컨테이너가 생성한다
+	public void setUploadFile(MultipartFile uploadFile) {
+		this.uploadFile = uploadFile;
+	}
+
+	public String getSearchCondition() {
+		return searchCondition;
+	}
+
+	public void setSearchCondition(String searchCondition) {
+		this.searchCondition = searchCondition;
+	}
+
+	public String getSearchKeyword() {
+		return searchKeyword;
+	}
+
+	public void setSearchKeyword(String searchKeyword) {
+		this.searchKeyword = searchKeyword;
+	}
 
 	public int getSeq() {
 		return seq;

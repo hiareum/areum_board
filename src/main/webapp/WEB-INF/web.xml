@@ -16,6 +16,15 @@
 		<url-pattern>*.do</url-pattern>
 	</filter-mapping>
   
+  <context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:applicationContext.xml</param-value>
+	</context-param>
+		
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+  
   <!-- 아래에 서블릿 ㄷ디스패쳐를 직접 작성해주었기때문에 자동으로 생성되는 설정들은 주석처리함 -->
   <!-- <context-param>
     <param-name>contextConfigLocation</param-name>

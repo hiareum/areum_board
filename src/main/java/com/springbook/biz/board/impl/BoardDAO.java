@@ -23,6 +23,10 @@ public class BoardDAO {
 		private final String BOARD_DELETE = "delete board where seq=?";
 		private final String BOARD_GET = "select * from board where seq=?";
 		private final String BOARD_LIST = "select * from board order by seq desc";
+		private final String BOARD_LIST_T = "select * from board where title like '%'||?||'%' order by seq desc";
+		private final String BOARD_LIST_C = "select * from board where content like '%'||?||'%' order by seq desc";
+		
+		
 		
 		// 글 목록 조회
 		public List<BoardVO> getBoardList(BoardVO vo) {
@@ -30,7 +34,13 @@ public class BoardDAO {
 			List<BoardVO> boardList = new ArrayList<BoardVO>();
 			try {
 				conn = JDBCUtil.getConnection();
-				stmt = conn.prepareStatement(BOARD_LIST);
+				if (vo.getSearchCondition().equals("TITLE")) {
+					stmt = conn.prepareStatement(BOARD_LIST_T);		
+				} else if (vo.getSearchCondition().equals("CONTENT")) {
+					stmt = conn.prepareStatement(BOARD_LIST_C);
+				}
+			//	stmt = conn.prepareStatement(BOARD_LIST);
+				stmt.setNString(1,  vo.getSearchKeyword());
 				rs = stmt.executeQuery();
 				while (rs.next()) {
 					BoardVO board = new BoardVO();
