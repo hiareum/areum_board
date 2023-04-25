@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.springbook.biz.board.BoardListVO;
@@ -46,6 +47,7 @@ public class BoardController {
 
 	
 	// 글 등록
+		/*
 	@RequestMapping(value = "/insertBoard.do") //스프링컨테이너가 BoardVO객체 생성시 MultipartFile 객체를 생성하고 할당함,
 	//그런데  multipartResolver라는 이름으로 등록된 CommonsMultipartResolver가 없으면 스프링 컨테이너는 MultipartFile객체를 생성할 수 없다 
 	public String insertBoard(BoardVO vo, BoardDAO boardDAO) throws IOException {
@@ -57,7 +59,20 @@ public class BoardController {
 				}
 		boardDAO.insertBoard(vo);
 		return "getBoardList.do";
-	}
+	}  */
+	
+	
+	//230425 글등록이 안되어서 수정해봄
+		@RequestMapping(value = "/insertBoard.do")
+		public String insertBoard(@RequestParam("uploadFile") MultipartFile uploadFile, BoardVO vo, BoardDAO boardDAO) throws IOException {
+		    // 파일 업로드 처리
+		    if(!uploadFile.isEmpty()){
+		        String fileName = uploadFile.getOriginalFilename();
+		        uploadFile.transferTo(new File("D:\\boardWebFile" + fileName));
+		    }
+		    boardDAO.insertBoard(vo);
+		    return "getBoardList.do";
+		}
 
 	// 글 수정
 		@RequestMapping("/updateBoard.do")
