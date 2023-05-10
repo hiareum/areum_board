@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.springbook.biz.board.BoardDAOSpring;
+
 import com.springbook.biz.board.BoardService;
 import com.springbook.biz.board.BoardVO;
 import com.springbook.biz.common.Log4jAdvice;
@@ -15,8 +15,7 @@ import com.springbook.biz.common.LogAdvice;
 public class BoardServiceImpl implements BoardService {
 	@Autowired
 	private BoardDAOMybatis boardDAO;
-	//private LogAdvice log;
-//	private Log4jAdvice log;
+
 
 	public BoardServiceImpl() {
 	//	log = new LogAdvice();

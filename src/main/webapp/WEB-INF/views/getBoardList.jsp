@@ -7,17 +7,24 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>글 목록</title>
+<title>AREUM BOARD 방명록</title>
 </head>
 <body>
-	<center>
+
+	
+	<div class="board_bg">
+
 		<h1><spring:message code="message.board.list.mainTitle"/></h1>
-		<h3>${userName }<spring:message code="message.board.list.welcomeMsg"/>...
-			<a href="logout.do">Log-out</a>
-		</h3>
+		<h3 class="welcomeMsg">${userName}<spring:message code="message.board.list.welcomeMsg"/></h3>
+	
+		
+		<div class="logout">
+		<a href="logout.do" >Log-out</a>
+		</div>
 		<!-- 검색 시작 -->
 		<form action="getBoardList.do" method="post">
-			<table border="1" cellpadding="0" cellspacing="0" width="700">
+
+			<table class="list_tb"  cellpadding="0" cellspacing="0" width="700">
 				<tr>
 					<td align="right">
 					<select name="searchCondition">
@@ -32,17 +39,19 @@
 			</table>
 		</form>
 		<!-- 검색 종료 -->
-		<table border="1" cellpadding="0" cellspacing="0" width="700">
+		<table class="list_tb" border="1" cellpadding="0" cellspacing="0" width="700">
 			<tr>
-				<th bgcolor="orange" width="100">
+				<th class="t_name" width="100">
 				<spring:message	code="message.board.list.table.head.seq" /></th>
-				<th bgcolor="orange" width="200">
+				<th class="t_name" width="200">
 				<spring:message code="message.board.list.table.head.title" /></th>
-				<th bgcolor="orange" width="150">
+				<th class="t_name" width="150">
+				<%-- <spring:message code="message.board.list.table.head.content" /></th> <!-- 230425내용검색할때 안나와서 추가 -->
+				<th bgcolor="orange" width="150"> --%>
 				<spring:message code="message.board.list.table.head.writer" /></th>
-				<th bgcolor="orange" width="150">
+				<th class="t_name" width="150">
 				<spring:message code="message.board.list.table.head.regDate" /></th>
-				<th bgcolor="orange" width="100">
+				<th class="t_name" width="100">
 				<spring:message code="message.board.list.table.head.cnt" /></th>
 			</tr>
 			<c:forEach items="${boardList }" var="board">
@@ -50,13 +59,16 @@
 					<td>${board.seq }</td>
 					<td align="left"><a href="getBoard.do?seq=${board.seq }">
 							${board.title }</a></td>
+							<%-- <td>${board.content }</td> <!-- 230425내용검색할때 안나와서 추가 --> --%>
 					<td>${board.writer }</td>
 					<td>${board.regDate }</td>
 					<td>${board.cnt }</td>
 				</tr>
 			</c:forEach>
 		</table>
-		<br> <a href="insertBoard.jsp"><spring:message code="message.board.list.link.insertBoard"/></a>
-	</center>
+		<br> <a href="newBoard.do"><spring:message code="message.board.list.link.insertBoard"/></a>
+	</div>
+	
+	
 </body>
 </html>

@@ -1,0 +1,64 @@
+@charset "utf-8";
+
+a {
+	text-decoration: none;
+	color: black;
+}
+
+.welcomeMsg{
+	font-size:15px;
+}
+
+.h_name {
+	padding: 35px;
+	background-color: navy;
+	text-align: center;
+}
+
+.h_name h1 {
+	color: beige;
+}
+
+.footer {
+	text-align: center;
+}
+
+.t_name {
+	background-color: #FAFAC0;
+}
+
+.logout {
+	padding: 5px;
+	background-color: yellow;
+	border-radius: 10px;
+	width: 100px;
+	margin: 0 auto 2%; /* 가운데 정렬 */
+	font-weight: bold;
+}
+
+.board_bg {
+	width: 90%;
+	margin: 5% auto 0; /* 가운데 정렬 */
+	background-color: white;
+	padding: 10px;
+}
+
+body {
+	text-align: center;
+	margin: 0 auto; /* 가운데 정렬 */
+	background-color: #FAFAC0;
+}
+
+.list_tb {
+	margin: 0 auto 2%; /* 가운데 정렬 */
+}
+
+.login_tb {
+	margin: 3% auto 3%;
+}
+
+.lang_bt {
+	background-color: #DF4D4D;
+	padding: 3px;
+	border-radius: 5px;
+}

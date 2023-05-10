@@ -15,6 +15,7 @@ message.board.list.search.condition.content=내용
 message.board.list.search.condition.btn=검색
 message.board.list.table.head.seq=번호
 message.board.list.table.head.title=제목
+message.board.list.table.head.content=내용
 message.board.list.table.head.writer=작성자
 message.board.list.table.head.regDate=등록일
 message.board.list.table.head.cnt=조회수

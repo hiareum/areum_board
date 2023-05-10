@@ -10,11 +10,10 @@ import org.springframework.stereotype.Controller;
 
 @Controller
 public class LogoutController  {
-
 	@RequestMapping("/logout.do")
 	public String logout(HttpSession session) {
 		session.invalidate();
-		return "login.jsp";
+		return "redirect:/login.do";
 	}
 
 	

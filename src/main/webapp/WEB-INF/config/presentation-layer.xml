@@ -107,6 +107,22 @@
 			<property name="paramName" value="lang" /><!--클라이언트로 부터 "lang"이라는 파라미터로 특정 로케일이 전송되면 해당 로케일로 변경하겠다  -->
 		</bean>
 	</mvc:interceptors>
+	
+	
+	  <!-- Tiles configuration -->
+    <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+        <property name="definitions">
+            <list>
+                <value>classpath:tiles/*.xml</value>
+            </list>
+        </property>
+    </bean>
+    
+    <!-- View resolver -->
+    <bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" />
+    </bean>
+	
  
  <!-- 230425 글등록을 위해 주석처리 후 applicationContext.xml에 등록함 -->
 <!--  

@@ -20,7 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.springbook.biz.board.BoardListVO;
+
 import com.springbook.biz.board.BoardService;
 import com.springbook.biz.board.BoardVO;
 import com.springbook.biz.board.impl.BoardDAO;
@@ -62,44 +62,52 @@ public class BoardController {
 	}  */
 	
 	
-	//230425 글등록이 안되어서 수정해봄
+		//컨트롤러에서 DAO메소드를 호출하면 안되는 이유는 유지보수 과정에서 DAO클래스를 다른클래스로 쉽게 교체하기 위해서다.
+		// 글 등록
 		@RequestMapping(value = "/insertBoard.do")
-		public String insertBoard(@RequestParam("uploadFile") MultipartFile uploadFile, BoardVO vo, BoardDAO boardDAO) throws IOException {
-		    // 파일 업로드 처리
-		    if(!uploadFile.isEmpty()){
-		        String fileName = uploadFile.getOriginalFilename();
-		        uploadFile.transferTo(new File("D:\\boardWebFile" + fileName));
-		    }
-		    boardDAO.insertBoard(vo);
-		    return "getBoardList.do";
-		}
-
-	// 글 수정
-		@RequestMapping("/updateBoard.do")
-		public String updateBoard(@ModelAttribute("board") BoardVO vo, BoardDAO boardDAO) {
-			System.out.println("번호 : " + vo.getSeq());
-			System.out.println("제목 : " + vo.getTitle());
-			System.out.println("작성자 : " + vo.getWriter());
-			System.out.println("내용 : " + vo.getContent());
-			System.out.println("등록일 : " + vo.getRegDate());
-			System.out.println("조회수 : " + vo.getCnt());
+		public String insertBoard(BoardVO vo) throws IOException{
+			// 파일 업로드 처리
+			// MultipartFile 객체가 제공하는 세개의 메소드
+			//getUploadFile, getOriginalFilename, transferTo만 이용하면 간단하게 파일업로드를 처리할 수 있다.
+		/*	MultipartFile uploadFile = vo.getUploadFile();
+			int boardNum = vo.getSeq();
 			
-			boardDAO.updateBoard(vo);
-			return "getBoardList.do";
+			if(!uploadFile.isEmpty()){
+				String fileName = uploadFile.getOriginalFilename();
+				File file = new File("D:/board/" + boardNum);
+				if (!file.exists()) {file.mkdir();}
+				uploadFile.transferTo(new File(file,fileName));
+			}  */
+			
+			boardService.insertBoard(vo);
+			return "redirect:/getBoardList.do";
 		}
 
-	// 글 삭제
-	@RequestMapping("/deleteBoard.do")
-	public String deleteBoard(BoardVO vo, BoardDAO boardDAO) {
-		boardDAO.deleteBoard(vo);
-		return "getBoardList.do";
-	}
+		//글등록 
+		@RequestMapping(value = "/newBoard.do")
+		public String newBoard(BoardVO vo) throws IOException{
+			return "insertBoard";
+		}
+		
+		// 글 수정
+		@RequestMapping("/updateBoard.do")
+		public String updateBoard(@ModelAttribute("board") BoardVO vo) {			
+			boardService.updateBoard(vo);
+			return "redirect:/getBoardList.do";
+		}
 
-	// 글 상세 조회
-		@RequestMapping("/getBoard.do") //model에도 board라는 이름으로 boardVO객체가 저장된다 왜냐하면 @SessionAttributes("board")설정으로 인해 
-		public String getBoard(BoardVO vo, BoardDAO boardDAO, Model model) {
-			model.addAttribute("board", boardDAO.getBoard(vo)); // Model 정보 저장
-			return "getBoard.jsp"; // View 이름 리턴
+		// 글 삭제
+		@RequestMapping("/deleteBoard.do")
+		public String deleteBoard(BoardVO vo) {
+			boardService.deleteBoard(vo);
+			System.out.println("삭제를 완료했습니다.");
+			return "redirect:/getBoardList.do";
+		}
+		// 글 상세 조회
+		@RequestMapping("/getBoard.do")
+		public String getBoard(BoardVO vo, Model model) {
+			model.addAttribute("board", boardService.getBoard(vo)); // Model 정보 저장
+			return "getBoard"; // View 이름 리턴
 		}
 		
 	// 글 목록 검색
@@ -125,31 +133,30 @@ public class BoardController {
 //		}
 		
 		// 글 목록 검색
-		@RequestMapping("/getBoardList.do")
-		public String getBoardList(BoardVO vo,  Model model) {	
-			//널 체크,. 검색조건과 검색키워드가 전달되지 않을 때를 위하여 (예를 들면 로그인 성공 후 getBoardList.do 요청이 전달되거나 상세화면에서 글목록
-			//보드 VO객체의SearchCondition , SearchKeyword변수 )
-			if(vo.getSearchCondition()==null) {
-				vo.setSearchCondition("TITLE");
-			}
-			if(vo.getSearchKeyword()==null) {
-				vo.setSearchKeyword("");
-			}
-			//모델정보 저장
-			model.addAttribute("boardList", boardService.getBoardList(vo));																
-			return "getBoardList.jsp"; // View 이름 리턴
-		}
-		
-		
-		@RequestMapping("/dataTransform.do")
-		@ResponseBody //자바 객체를 Http응답 프로토콜의 몸체로 변환하기 위해 사용
-		public BoardListVO dataTransform(BoardVO vo) {
-			vo.setSearchCondition("TITLE");
-			vo.setSearchKeyword("");
-			List<BoardVO> boardList = boardService.getBoardList(vo);
-			BoardListVO boardListVO = new BoardListVO();
-			boardListVO.setBoardList(boardList);
+				@RequestMapping("/getBoardList.do")
+				public String getBoardList(BoardVO vo, Model model) {
+					// Null Check
+					if(vo.getSearchCondition() == null) vo.setSearchCondition("TITLE");
+					if(vo.getSearchKeyword() == null) vo.setSearchKeyword("");
+					
+					System.out.println(vo.getSearchKeyword());
+					// Model 정보 저장
+					model.addAttribute("boardList", boardService.getBoardList(vo));																
+					return "getBoardList"; // View 이름 리턴
+				}
 			
-			return boardListVO;
+			
 		
-}}
+		
+			//글목록 변환처리
+			//익스플로어는 버전에 따라서 json 데이터를 표시할수없으니 크롬으로 확인하자.
+			@RequestMapping("/dataTransform.do")
+			@ResponseBody
+			public List<BoardVO> dataTransform(BoardVO vo) {
+				vo.setSearchCondition("TITLE");
+				vo.setSearchKeyword("");
+				List<BoardVO> boardList = boardService.getBoardList(vo);
+				return boardList;
+			}
+		
+}
