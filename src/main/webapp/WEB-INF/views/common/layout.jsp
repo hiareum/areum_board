@@ -16,7 +16,7 @@
 
 <!-- custom css -->
 <link href="${contextPath}/resources/css/style.css" rel="stylesheet"
-	type="text/css" media="screen">
+	type="text/css">
 
 
 <!-- title -->
